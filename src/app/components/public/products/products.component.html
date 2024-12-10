@@ -1,0 +1,150 @@
+<div class="d-flex justify-content-center my-5">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Crears</button>
+</div>
+
+@if (products) {
+<div class="container">
+    <div class="d-flex justify-content-center gap-3">
+        @for (item of products; track $index) {
+
+        <div class="card" style="width: 18rem;">
+            <img src="{{item.imagen}}" class="card-img-top" alt="{{item.nombre}}">
+            <div class="card-body">
+                <h5 class="card-title">{{item.nombre}}</h5>
+                <p class="card-text">{{item.descripcion}}</p>
+                <div class="d-flex justify-content-between">
+                    <button (click)="updateProduct(item._id)" data-bs-toggle="modal" [attr.data-bs-target]="'#'+item._id" class="btn btn-warning">Editar</button>
+                    <button (click)="eliminar(item._id)" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="{{item._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-between">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Product</h1>
+                        <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center ">
+                            <div class="form-container">
+                                <p class="title"></p>
+                                <form [formGroup]="formEdit" class="form">
+                                    <div class="input-group">
+                                        <label for="Nombre">Nombre</label>
+                                        <input formControlName="nombre" type="Nombre" name="Nombre" id="Nombre" placeholder="">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="Precio">Precio</label>
+                                        <input formControlName="precio" type="number" name="Precio" id="Precio" placeholder="">
+                                    </div>
+                                    <div class="input-group ">
+                                        <label for="Tipo">Tipo</label>
+                                        <input formControlName="tipo" type="Tipo" name="Tipo" id="Tipo" placeholder="">
+                                    </div>
+
+                                    <div class="input-group ">
+                                        <label for="descripcion">Descripcion</label>
+                                        <input formControlName="descripcion" type="text" name="descripcion" id="descripcion"
+                                            placeholder="">
+                                    </div>
+                                    <div class="input-group ">
+                                        <label for="serie">Serie</label>
+                                        <input formControlName="serie" type="text" name="serie" id="serie" placeholder="">
+                                    </div>
+                                    <div class="input-group ">
+                                        <label for="marca">Marca</label>
+                                        <input formControlName="marca" type="text" name="marca" id="marca" placeholder="">
+                                    </div>
+                                    <div class="input-group ">
+                                        <label for="imagen">Imagen</label>
+                                        <input formControlName="imagen" type="text" name="imagen" id="imagen" placeholder="">
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Update!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+</div>
+}
+@if (!products) {
+
+<div class="box">
+    <section class="loader">
+        <div style="--i:0" class="slider"></div>
+        <div style="--i:1" class="slider"></div>
+        <div style="--i:2" class="slider"></div>
+        <div style="--i:3" class="slider"></div>
+        <div style="--i:4" class="slider"></div>
+    </section>
+</div>
+
+}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">New Product</h1>
+                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center ">
+                    <div class="form-container">
+                        <p class="title"></p>
+                        <form [formGroup]="formProduct" class="form">
+                            <div class="input-group">
+                                <label for="Nombre">Nombre</label>
+                                <input formControlName="nombre" type="Nombre" name="Nombre" id="Nombre" placeholder="">
+                            </div>
+                            <div class="input-group">
+                                <label for="Precio">Precio</label>
+                                <input formControlName="precio" type="number" name="Precio" id="Precio" placeholder="">
+                            </div>
+                            <div class="input-group ">
+                                <label for="Tipo">Tipo</label>
+                                <input formControlName="tipo" type="Tipo" name="Tipo" id="Tipo" placeholder="">
+                            </div>
+
+                            <div class="input-group ">
+                                <label for="descripcion">Descripcion</label>
+                                <input formControlName="descripcion" type="text" name="descripcion" id="descripcion"
+                                    placeholder="">
+                            </div>
+                            <div class="input-group ">
+                                <label for="serie">Serie</label>
+                                <input formControlName="serie" type="text" name="serie" id="serie" placeholder="">
+                            </div>
+                            <div class="input-group ">
+                                <label for="marca">Marca</label>
+                                <input formControlName="marca" type="text" name="marca" id="marca" placeholder="">
+                            </div>
+                            <div class="input-group ">
+                                <label for="imagen">Imagen</label>
+                                <input formControlName="imagen" type="text" name="imagen" id="imagen" placeholder="">
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button"(click)="addProduct()" class="btn btn-primary">Create!</button>
+            </div>
+        </div>
+    </div>
+</div>
