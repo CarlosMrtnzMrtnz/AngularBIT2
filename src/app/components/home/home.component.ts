@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,7 @@ export class HomeComponent {
     userService = inject(UserService)
     formEdit!: FormGroup
     urlVideo = "/public/Manchester.mp4"
-    constructor(private fb : FormBuilder) {
+    constructor(private fb : FormBuilder, private router : Router) {
         this.formEdit = this.fb.group({
             email:['', []],
             apellido:['', []],
@@ -29,6 +31,10 @@ export class HomeComponent {
     usuarios!: any
 
     ngOnInit () {
+        if (sessionStorage.getItem('token') == undefined || null) {
+            this.router.navigate(['login'])
+        }
+
         this.userService.getUsers().subscribe({
             next:(resApi : any)=> {
                 console.log(resApi);

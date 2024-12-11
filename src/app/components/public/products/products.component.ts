@@ -21,7 +21,7 @@ export class ProductsComponent {
 
     constructor(private fb : FormBuilder){
         this.formProduct = this.fb.group({
-            nombre: ['', [Validators.required]],
+            nombre: ['', [Validators.required, Validators.minLength(3)]],
             precio: ['', [Validators.required]],
             tipo: ['', [Validators.required]],
             descripcion: ['', [Validators.required]],
@@ -139,6 +139,43 @@ export class ProductsComponent {
             }
         })
     }
+
+    productoEditado(id: string ) {
+
+        if (this.formEdit.valid) {
+
+            Swal.fire({
+                title: "Do you want to save the changes?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Save",
+                denyButtonText: `Don't save`
+              }).then((result) => {
+                if (result.isConfirmed) {
+
+                  this.productService.updateProduct(id, this.formEdit.value).subscribe({
+                    next:(resApi:any)=> {
+                        Swal.fire("Saved!", "", "success");
+                        this.ngOnInit ()
+                    },
+                    error:(error:any)=> {
+                        console.log(error);
+                        Swal.fire("Changes are not saved", "", "info");
+
+                    }
+                })
+                } else if (result.isDenied) {
+                  Swal.fire("Changes are not saved", "", "info");
+                }
+              });
+
+        } else {
+            Swal.fire({
+                title:"Formulario incorrecto",
+                icon:"warning"
+            })
+        }
+        }
 
 
 

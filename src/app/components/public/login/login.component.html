@@ -2,17 +2,17 @@
 <div class="d-flex justify-content-center my-5">
     <div class="form-container">
         <p class="title">Login</p>
-        <form class="form">
+        <form [formGroup]="formLogin" class="form">
             <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" placeholder="">
+                <label for="username">Email</label>
+                <input formControlName="email" type="email" name="username" id="username" placeholder="">
             </div>
             <div class="input-group mb-4">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="">
+                <input formControlName="password" type="password" name="password" id="password" placeholder="">
 
             </div>
-            <button class="sign">Sign in</button>
+            <button (click)="login()" class="sign">Sign in</button>
         </form>
         <div class="social-message">
             <div class="line"></div>

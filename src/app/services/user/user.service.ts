@@ -28,4 +28,8 @@ export class UserService {
     getOneUSer (id :string) {
         return this.http.get(`${this.apiUrl}/user/${id}`)
     }
+
+    session(body: any) {
+        return this.http.post(`${this.apiUrl}/session`, body)
+    }
 }

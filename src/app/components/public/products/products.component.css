@@ -181,3 +181,11 @@ img {
     line-height: 1rem;
     color: rgba(156, 163, 175, 1);
   }
+
+  .opacidad {
+    opacity: 1 !important;
+  }
+  .minlen {
+    position: absolute;
+    transform: translate(35px, -24px );
+  }
