@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,8 +11,27 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+    constructor(private router : Router) {}
+
+    estado!: boolean
+
+    ngOnInit () {
+        if (sessionStorage.getItem('token')) {
+            this.estado = true
+        } else {
+            this.estado = false
+        }
+    }
+
+    ngDoCheck() {
+        this.ngOnInit()
+        console.log("docheck");
+
+    }
 
     logout() {
         sessionStorage.removeItem('token')
+        this.router.navigate(['login'])
+        this. ngOnInit ()
     }
 }

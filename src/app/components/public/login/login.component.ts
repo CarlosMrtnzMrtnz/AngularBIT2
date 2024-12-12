@@ -18,12 +18,13 @@ export class LoginComponent {
 
     userService = inject(UserService)
     formLogin!: FormGroup
-    constructor(private fb : FormBuilder, private router :Router) {
+    constructor(private fb : FormBuilder, private router :Router){
         this.formLogin = this.fb.group({
-            email:['',[Validators.required]],
-            password:['', [Validators.required]]
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required, Validators.minLength(3)]]
         })
     }
+
 
     ngOnInit() {
         if (sessionStorage.getItem('token')) {
@@ -31,39 +32,37 @@ export class LoginComponent {
         }
     }
 
-    login() {
+    login () {
         if (this.formLogin.valid) {
             this.userService.session(this.formLogin.value).subscribe({
                 next:(resApi:any)=> {
                     let token = resApi
+
                     sessionStorage.setItem('token', token)
                     Swal.fire({
                         icon:"success",
                         title:"Bienvenido!",
-                        text:`${resApi}`
+                        text:":D"
                     })
-                    this.router.navigate(['home'])
+                    this.ngOnInit()
                 },
                 error:(error:any)=>{
                     console.log(error);
                     Swal.fire({
-                        icon:"warning",
-                        title:"Formulario incorrecto!",
-                        text:`${error.error.error}`
-                    })
+                    icon:"error",
+                    title:"Ups!",
+                    text:`${error.error.error}`
+            })
                 }
-
             })
 
         } else {
             Swal.fire({
                 icon:"warning",
-                title:"Formulario incorrecto!"
+                title:"Form Incorrecto!",
+                text:"Por favor diligencie correctamente el formulario"
             })
         }
-
-
     }
-
 
 }

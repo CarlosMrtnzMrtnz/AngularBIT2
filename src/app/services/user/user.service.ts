@@ -29,7 +29,8 @@ export class UserService {
         return this.http.get(`${this.apiUrl}/user/${id}`)
     }
 
-    session(body: any) {
+    session (body: any) {
         return this.http.post(`${this.apiUrl}/session`, body)
     }
+
 }

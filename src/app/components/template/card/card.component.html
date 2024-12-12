@@ -1,0 +1,14 @@
+<div class="user-card">
+    <div class="user-avatar">
+        <img src="{{rutaImagen}}" alt="User Avatar">
+    </div>
+    <div class="user-info">
+        <h3></h3>
+        <p>{{rutaEmail}}</p>
+        <p class="user-bio fw-bold ">{{rutaNombre}}</p>
+        <div class="user-actions">
+            <button  data-bs-toggle="modal"  class="btn view-profile">Editar</button>
+            <button (click)="eli(rutaId)" class="btn  send-message">Eliminar</button>
+        </div>
+    </div>
+</div>

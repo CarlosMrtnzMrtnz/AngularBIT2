@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -18,12 +18,18 @@ export class RegisterComponent {
 
     userService = inject(UserService)
     formRegister!: FormGroup
-    constructor(private fb : FormBuilder) {
+    constructor(private fb : FormBuilder, private router : Router) {
         this.formRegister = this.fb.group({
             email: ['', []],
             nombre: ['', []],
             password: ['',[]]
         })
+    }
+
+    ngOnInit() {
+        if (sessionStorage.getItem('token')) {
+            this.router.navigate(['home'])
+        }
     }
 
     register () {

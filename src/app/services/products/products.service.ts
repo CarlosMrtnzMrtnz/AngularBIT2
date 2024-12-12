@@ -14,6 +14,11 @@ export class ProductsService {
         return this.http.get(`${this.apiUrl}/products`)
     }
 
+    busqueda(nombre:string) {
+        return this.http.get(`${this.apiUrl}/products/${nombre}`)
+
+    }
+
     deleteProduct (id: string) {
         return this.http.delete(`${this.apiUrl}/deleteproduct/${id}`)
     }

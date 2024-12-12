@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { ProductsService } from '../../../services/products/products.service';
 import Swal from 'sweetalert2';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-products',
@@ -18,8 +20,9 @@ export class ProductsComponent {
     productService = inject(ProductsService)
     formProduct!: FormGroup
     formEdit!: FormGroup
+    busqueda = new FormControl
 
-    constructor(private fb : FormBuilder){
+    constructor(private fb : FormBuilder, private router : Router){
         this.formProduct = this.fb.group({
             nombre: ['', [Validators.required, Validators.minLength(3)]],
             precio: ['', [Validators.required]],
@@ -41,6 +44,10 @@ export class ProductsComponent {
     }
 
     ngOnInit () {
+
+        if (sessionStorage.getItem('token') == undefined || null) {
+            this.router.navigate(['login'])
+        }
         this.productService.getProducts().subscribe({
             next:(resApi: any)=> {
                 this.products = resApi
@@ -177,6 +184,18 @@ export class ProductsComponent {
         }
         }
 
+    buscar () {
+        console.log(this.busqueda.value);
 
+        this.productService.busqueda(this.busqueda.value).subscribe({
+            next:(resApi:any)=> {
+                this.products = resApi
+            },
+            error:(error:any)=> {
+                console.log(error);
+
+            }
+        })
+    }
 
 }

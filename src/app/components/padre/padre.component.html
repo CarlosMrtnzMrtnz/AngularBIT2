@@ -1,0 +1,11 @@
+<div class="d-flex">
+    @for (item of items; track $index) {
+        <app-card
+        [rutaEmail]="item.email"
+        [rutaImagen]="item.imagen"
+        [rutaNombre]="item.nombre"
+        [rutaId]="item._id"
+        ></app-card>
+
+    }
+</div>

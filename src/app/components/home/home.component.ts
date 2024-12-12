@@ -18,7 +18,7 @@ export class HomeComponent {
 
     userService = inject(UserService)
     formEdit!: FormGroup
-    urlVideo = "/public/Manchester.mp4"
+    urlVideo = "https://www.youtube.com/watch?v=NOAGp70WEsI"
     constructor(private fb : FormBuilder, private router : Router) {
         this.formEdit = this.fb.group({
             email:['', []],

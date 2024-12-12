@@ -9,18 +9,23 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="" routerLink="/home">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="" routerLink="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="" routerLink="/register">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="" routerLink="/products">Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " (click)="logout()" type="button">Logout</a>
-          </li>
+          @if (!estado) {
+            <li class="nav-item">
+                <a class="nav-link" href="" routerLink="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="" routerLink="/register">Register</a>
+              </li>
+          }
+
+          @if (estado) {
+              <li class="nav-item">
+                <a class="nav-link" href="" routerLink="/products">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " (click)="logout()" type="button">Logout</a>
+              </li>
+          }
         </ul>
       </div>
     </div>
