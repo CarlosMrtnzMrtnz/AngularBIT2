@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,11 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
     apiUrl: string = "http://localhost:3000/api"
-
+    token:any = sessionStorage.getItem('token')
   constructor(private http : HttpClient) { }
 
     getUsers () {
-        return this.http.get(`${this.apiUrl}/users`)
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`)
+        return this.http.get(`${this.apiUrl}/users`, {headers})
     }
 
     eliminarUser (id: string) {
